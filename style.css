@@ -29,3 +29,7 @@ h4 {
 .modal-dialog {
     width: 90%;
 }
+
+canvas {
+    box-shadow: 3px 3px 3px 3px darkgrey;
+}

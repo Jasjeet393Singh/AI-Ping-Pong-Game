@@ -18,22 +18,40 @@ var ball = {
     dy:3
 }
 
+video = "";
+
 function setup(){
-  var canvas =  createCanvas(700,600);
+  var canvas = createCanvas(700,600);
+   canvas.parent('canvas');
+  var video = createCapture(VIDEO);
+   video.size(700,500);
+   video.hide();
+   
 }
 
+function startGame() {
+  poseNet = ml5.poseNet(video, modelLoaded);
+}
+
+function restart() {
+  
+}
+
+function modelLoaded() {
+  console.log("Model Loaded!")
+}
 
 function draw(){
+  image(video, 0, 0, 640, 480);
+  background(0); 
 
- background(0); 
+  fill("black");
+  stroke("black");
+  rect(680,0,20,700);
 
- fill("black");
- stroke("black");
- rect(680,0,20,700);
-
- fill("black");
- stroke("black");
- rect(0,0,20,700);
+  fill("black");
+  stroke("black");
+  rect(0,0,20,700);
  
    //funtion paddleInCanvas call 
    paddleInCanvas();
