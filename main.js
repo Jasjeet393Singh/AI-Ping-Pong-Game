@@ -19,30 +19,48 @@ var ball = {
 }
 
 video = "";
+RightWristX = "";
+RightWristY = "";
+score = drawScore();
 
 function setup(){
-  var canvas = createCanvas(700,600);
-   canvas.parent('canvas');
-  var video = createCapture(VIDEO);
-   video.size(700,500);
-   video.hide();
+  canvas = createCanvas(700,600);
+  canvas.parent('canvas');
+  video = createCapture(VIDEO);
+  video.size(700,600);
+  poseNet = ml5.poseNet(video, modelLoaded);
+	poseNet.on('pose', gotPoses);
    
 }
 
 function startGame() {
-  poseNet = ml5.poseNet(video, modelLoaded);
+  //start the  game
 }
 
 function restart() {
-  
+  //restart the game if lost
 }
 
 function modelLoaded() {
   console.log("Model Loaded!")
 }
 
+function gotPoses(results) {
+  if(results.length > 0) {
+    console.log(results);
+		RightWristX = results[0].pose.rightWrist.x;
+		RightWristY = results[0].pose.rightWrist.y;
+  }
+}
+
 function draw(){
-  image(video, 0, 0, 640, 480);
+  image(video, 0, 0, 700, 600);
+
+  if (rightWrist > 0.2) {
+    fill('#FFA500');
+    stroke('#FFA500');
+    circle(RightWristX, RightWristY, 30)
+  }
   background(0); 
 
   fill("black");
@@ -147,7 +165,7 @@ if(pcscore ==4){
     stroke("white");
     textSize(25)
     text("Game Over!☹☹",width/2,height/2);
-    text("Reload The Page!",width/2,height/2+30)
+    text("Press the Restart Button!",width/2,height/2+30)
     noLoop();
     pcscore = 0;
 }
