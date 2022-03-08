@@ -28,7 +28,7 @@ game_status = "";
   missed = loadSound("missed.wav");
 }
 
-function setup(){
+function setup() {
 var canvas =  createCanvas(700,600);
 canvas.parent('canvas');
 
@@ -44,10 +44,8 @@ function modelLoaded() {
   console.log('PoseNet Is Initialized');
 }
 
-function gotPoses(results)
-{
-  if(results.length > 0)
-  {
+function gotPoses(results) {
+  if(results.length > 0) {
 
     rightWristY = results[0].pose.rightWrist.y;
     rightWristX = results[0].pose.rightWrist.x;
@@ -56,13 +54,18 @@ function gotPoses(results)
   }
 }
 
-function startGame()
-{
+function startGame() {
   game_status = "start";
   document.getElementById("status").innerHTML = "Game Is Loading";
 }
 
-function draw(){
+function restart() {
+  pcscore = 0;
+  loop();
+}
+
+
+function draw() {
 
   background(0); 
   image(video, 0, 0, 700, 600);
@@ -120,7 +123,7 @@ function draw(){
 
 
 //function reset when ball does notcame in the contact of padde
-function reset(){
+function reset() {
    ball.x = width/2+100,
    ball.y = height/2+100;
    ball.dx=3;
@@ -129,7 +132,7 @@ function reset(){
 
 
 //function midline draw a line in center
-function midline(){
+function midline() {
     for(i=0;i<480;i+=10) {
     var y = 0;
     fill("white");
@@ -140,7 +143,7 @@ function midline(){
 
 
 //function drawScore show scores
-function drawScore(){
+function drawScore() {
     textAlign(CENTER);
     textSize(20);
     fill("white");
@@ -216,8 +219,3 @@ function paddleInCanvas(){
   
 }
 
-function restart()
-{
-  pcscore = 0;
-  loop();
-}
